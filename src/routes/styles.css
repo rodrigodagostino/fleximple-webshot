@@ -1,0 +1,222 @@
+/**
+ * Fonts
+ */
+@font-face {
+  font-display: swap;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  src: url("../assets/fonts/poppins-v20-latin-500.woff2") format("woff2"),
+    url("../assets/fonts/poppins-v20-latin-500.woff") format("woff");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  src: url("../assets/fonts/poppins-v20-latin-700.woff2") format("woff2"),
+    url("../assets/fonts/poppins-v20-latin-700.woff") format("woff");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../assets/fonts/rubik-v26-latin-400.woff2") format("woff2"),
+    url("../assets/fonts/rubik-v26-latin-400.woff") format("woff");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 600;
+  src: url("../assets/fonts/rubik-v26-latin-600.woff2") format("woff2"),
+    url("../assets/fonts/rubik-v26-latin-600.woff") format("woff");
+}
+
+/**
+ * Variables
+ */
+:root {
+  --font-main: "Poppins", Avenir, Helvetica, Arial, sans-serif;
+  --font-secondary: "Rubik", Avenir, Helvetica, Arial, sans-serif;
+
+  --indigo-050: #eef2ff;
+  --indigo-100: #e0e7ff;
+  --indigo-200: #c7d2fe;
+  --indigo-300: #a5b4fc;
+  --indigo-400: #818cf8;
+  --indigo-500: #6366f1;
+  --indigo-600: #4f46e5;
+  --indigo-700: #4338ca;
+  --indigo-800: #3730a3;
+  --indigo-900: #312e81;
+
+  --sky-100: #e0f2fe;
+  --sky-800: #075985;
+
+  --green-100: #dcfce7;
+  --green-800: #166534;
+
+  --red-100: #fee2e2;
+  --red-800: #991b1b;
+
+  --white: #fff;
+  --black: #000;
+
+  --gray-050: #fcfcfd;
+  --gray-100: #f5f5fa;
+  --gray-150: #e5e5f1;
+  --gray-200: #d5d5e6;
+  --gray-300: #b6b7d5;
+  --gray-400: #9698c3;
+  --gray-500: #777aaf;
+  --gray-600: #5a5e9a;
+  --gray-700: #484c7a;
+  --gray-800: #36395a;
+  --gray-900: #23263b;
+
+  --box-shadow-1: 0 1px 1px rgba(54, 57, 90, 0.1), 0 2px 2px rgba(54, 57, 90, 0.1),
+    0 4px 4px rgba(54, 57, 90, 0.1), 0 6px 8px rgba(54, 57, 90, 0.1),
+    0 8px 16px rgba(54, 57, 90, 0.1);
+  --box-shadow-2: 0 1px 1px rgba(54, 57, 90, 0.1), 0 2px 2px rgba(54, 57, 90, 0.1),
+    0 4px 4px rgba(54, 57, 90, 0.1), 0 8px 8px rgba(54, 57, 90, 0.1),
+    0 16px 16px rgba(54, 57, 90, 0.1);
+  --box-shadow-3: 0 2px 1px rgba(54, 57, 90, 0.1), 0 4px 2px rgba(54, 57, 90, 0.1),
+    0 8px 4px rgba(54, 57, 90, 0.1), 0 12px 8px rgba(54, 57, 90, 0.1),
+    0 24px 16px rgba(54, 57, 90, 0.1);
+  --box-shadow-4: 0 2px 1px rgba(54, 57, 90, 0.1), 0 4px 2px rgba(54, 57, 90, 0.1),
+    0 8px 4px rgba(54, 57, 90, 0.1), 0 16px 8px rgba(54, 57, 90, 0.1),
+    0 32px 16px rgba(54, 57, 90, 0.1);
+}
+
+/**
+ * Reset styles.
+ */
+html {
+  box-sizing: border-box;
+  height: 100%;
+}
+
+*,
+*::before,
+*::after {
+  /* Inherit box-sizing to make it easier to change the property for components that leverage other behavior; see http://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
+  box-sizing: inherit;
+}
+
+/* Reset margins and paddings on most elements */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+li,
+p,
+pre,
+blockquote,
+figure,
+hr {
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-main);
+}
+
+::selection {
+  color: var(--white);
+  background: var(--indigo-600);
+}
+
+a {
+  color: var(--white);
+  transition: outline 0.24s;
+  outline: 1px dotted transparent;
+}
+
+a:focus {
+  outline: 1px dotted var(--white);
+}
+
+/* Reset forms and buttons */
+input,
+textarea,
+select,
+button {
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+input,
+textarea,
+button {
+  border: 1px solid var(--gray-400);
+  min-width: 0;
+}
+
+button {
+  border-radius: 0;
+  padding: 0.75em 1em;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+/* Easy responsive for media elements */
+embed,
+iframe,
+img,
+object,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Useful table styles */
+table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+/**
+ * Base styles.
+ */
+body {
+  background-color: var(--gray-100);
+  font-family: var(--font-secondary);
+  color: var(--gray-600);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  min-height: 100vh;
+}
+
+.card {
+  background-color: var(--white);
+  border-radius: 0.25rem;
+  box-shadow: var(--box-shadow-1);
+  padding: 1.25rem;
+}
