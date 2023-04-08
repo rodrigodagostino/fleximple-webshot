@@ -5,12 +5,12 @@
   export let status: IStore['status'] = 'idle'
 </script>
 
-<div
-  class="notification notification--{status}"
-  in:fly|local={{ y: 32, duration: 320 }}
-  out:fade|local={{ duration: 320 }}
->
-  {#if status === 'generating'}
+{#if status === 'generating'}
+  <div
+    class="notification notification--{status}"
+    in:fly={{ y: 32, duration: 400, delay: 400 }}
+    out:fade={{ duration: 400 }}
+  >
     <svg viewBox="0 0 512 512" class="notification__icon" aria-hidden="true">
       <path
         fill="currentColor"
@@ -18,8 +18,14 @@
       />
     </svg>
     <span>Generating screenshot…</span>
-  {/if}
-  {#if status === 'success'}
+  </div>
+{/if}
+{#if status === 'success'}
+  <div
+    class="notification notification--{status}"
+    in:fly={{ y: 32, duration: 400, delay: 400 }}
+    out:fade={{ duration: 400 }}
+  >
     <svg viewBox="0 0 512 512" class="notification__icon" aria-hidden="true">
       <path
         fill="currentColor"
@@ -27,8 +33,14 @@
       />
     </svg>
     <span>Screenshot generated successfully.</span>
-  {/if}
-  {#if status === 'error'}
+  </div>
+{/if}
+{#if status === 'error'}
+  <div
+    class="notification notification--{status}"
+    in:fly={{ y: 32, duration: 400, delay: 400 }}
+    out:fade={{ duration: 400 }}
+  >
     <svg viewBox="0 0 352 512" class="notification__icon" aria-hidden="true">
       <path
         fill="currentColor"
@@ -36,11 +48,13 @@
       />
     </svg>
     <span>An error ocurred while generating the screenshot.</span>
-  {/if}
-</div>
+  </div>
+{/if}
 
 <style lang="scss">
   .notification {
+    grid-column: 1/-1;
+    grid-row: 2;
     display: flex;
     justify-content: center;
     align-items: center;

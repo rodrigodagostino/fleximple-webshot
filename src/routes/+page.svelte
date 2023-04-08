@@ -58,8 +58,8 @@
   }
 
   .app-main {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 2rem;
   }
 </style>

@@ -25,8 +25,8 @@
 
 <div
   class="screenshot card"
-  in:fly|local={{ y: 32, duration: 320 }}
-  out:fade|local={{ duration: 320 }}
+  in:fly={{ y: 32, duration: 400, delay: 400 }}
+  out:fade={{ duration: 400 }}
 >
   <a href={screenshotDataUri} download={fileName}>
     <img
@@ -37,3 +37,10 @@
     />
   </a>
 </div>
+
+<style lang="scss">
+  .screenshot {
+    grid-column: 1/-1;
+    grid-row: 3;
+  }
+</style>
