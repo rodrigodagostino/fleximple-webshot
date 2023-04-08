@@ -98,7 +98,6 @@
  */
 html {
   box-sizing: border-box;
-  height: 100%;
 }
 
 *,
@@ -202,7 +201,6 @@ body {
   color: var(--gray-600);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: 100%;
   display: flex;
   justify-content: center;
 }
