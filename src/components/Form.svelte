@@ -1,6 +1,6 @@
 <script lang="ts">
   import { camelCase } from 'lodash'
-  import { setFileName, setSetting, setStatus, store, type ISettings } from '../stores'
+  import { setScreenshot, setSetting, setStatus, store, type ISettings } from '../stores'
 
   const handleOnChange = ({ target }: Event) => {
     if (target) {
@@ -15,9 +15,32 @@
       setSetting(setting, value)
     }
   }
+
+  const requestScreenshot = async () => {
+    setStatus('generating')
+    setScreenshot(null)
+
+    const response = await fetch('/api/screenshot', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify($store.settings),
+    })
+      .then((data) => {
+        setStatus('success')
+        return data.json()
+      })
+      .catch((error) => {
+        setStatus('error')
+        console.error('Error:', error)
+      })
+
+    if (response) setScreenshot(response.screenshot)
+  }
 </script>
 
-<form class="form card">
+<form class="form card" on:submit|preventDefault={requestScreenshot}>
   <div class="form-control full-width">
     <label for="target-url" class="form-label">Site URL</label>
     <div class="form-field-group">

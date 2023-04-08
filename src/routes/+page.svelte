@@ -17,7 +17,7 @@
     {#if $store.status !== 'idle'}
       <Notification status={$store.status} />
     {/if}
-    {#if $store.status === 'success' && $store.fileName}
+    {#if $store.status === 'success' && $store.screenshot}
       <Screenshot />
     {/if}
   </main>

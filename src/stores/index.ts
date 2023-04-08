@@ -15,7 +15,7 @@ export interface ISettings {
 export interface IStore {
   status: 'idle' | 'generating' | 'success' | 'error'
   settings: ISettings
-  fileName: string | null
+  screenshot: string | null
 }
 
 const defaultStore: IStore = {
@@ -30,21 +30,28 @@ const defaultStore: IStore = {
     fileQuality: 80,
     captureDelay: 0,
   },
-  fileName: null,
+  screenshot: null,
 }
 
 const setLocalStorage = () => {
   const $store = get(store)
-  if (browser) localStorage.setItem('fleximpleWebshot', JSON.stringify($store))
+  if (browser) localStorage.setItem('fleximpleWebshotSettings', JSON.stringify($store.settings))
 }
 
 export const store = writable<IStore>(defaultStore, (set) => {
   if (browser) {
     const hasSettings =
-      localStorage.getItem('fleximpleWebshot')?.charAt(0) === '{' &&
-      !(localStorage.getItem('fleximpleWebshot')?.charAt(1) === '}')
+      localStorage.getItem('fleximpleWebshotSettings')?.charAt(0) === '{' &&
+      !(localStorage.getItem('fleximpleWebshotSettings')?.charAt(1) === '}')
     if (!hasSettings) setLocalStorage()
-    set(hasSettings ? JSON.parse(localStorage.getItem('fleximpleWebshot')) : defaultStore)
+    set(
+      hasSettings
+        ? {
+            ...defaultStore,
+            settings: JSON.parse(localStorage.getItem('fleximpleWebshotSettings')),
+          }
+        : defaultStore
+    )
   }
 })
 
@@ -66,11 +73,11 @@ export const setSetting = (setting: keyof ISettings, value: string | boolean) =>
   setLocalStorage()
 }
 
-export const setFileName = (fileName: IStore['fileName']) => {
+export const setScreenshot = (screenshot: IStore['screenshot']) => {
   store.update((currData) => {
     return {
       ...currData,
-      fileName,
+      screenshot,
     }
   })
 }
