@@ -7,6 +7,10 @@
   import './styles.css'
 </script>
 
+<svelte:head>
+  <title>Fleximple Webshot</title>
+</svelte:head>
+
 <div class="container">
   <header class="app-header">
     <p class="app-eyebrow">Fleximple</p>
