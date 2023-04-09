@@ -174,7 +174,7 @@
       height: 2.25rem;
       padding: 0.25rem 0.5rem;
       outline: none;
-      transition: color 0.24s ease, background-color 0.24s ease, border 0.24s ease;
+      transition: color 0.24s, background-color 0.24s, border 0.24s;
 
       &::placeholder {
         color: var(--gray-400);
@@ -220,7 +220,7 @@
       font-weight: 500;
       color: var(--white);
       text-transform: uppercase;
-      transition: background-color 0.24s ease, border 0.24s ease, opacity 0.24s ease;
+      transition: background-color 0.24s, border 0.24s, opacity 0.24s;
 
       &:focus {
         box-shadow: 0 0 0 0.25rem var(--indigo-200);

@@ -23,24 +23,57 @@
     : null
 </script>
 
-<div
+<a
   class="screenshot card"
+  href={screenshotDataUri}
+  download={fileName}
   in:fly={{ y: 32, duration: 400, delay: 400 }}
   out:fade={{ duration: 400 }}
 >
-  <a href={screenshotDataUri} download={fileName}>
-    <img
-      src={screenshotDataUri}
-      width={$store.settings.fileWidth}
-      height={$store.settings.fileHeight}
-      alt="Screenshot taken from {$store.settings.targetUrl}"
-    />
-  </a>
-</div>
+  <div class="screenshot__overlay">
+    <span class="button">Download</span>
+  </div>
+  <img
+    src={screenshotDataUri}
+    width={$store.settings.fileWidth}
+    height={$store.settings.fileHeight}
+    alt="Screenshot taken from {$store.settings.targetUrl}"
+  />
+</a>
 
 <style lang="scss">
   .screenshot {
     grid-column: 1/-1;
     grid-row: 3;
+    position: relative;
+
+    &:focus,
+    &:hover {
+      .screenshot__overlay {
+        opacity: 1;
+      }
+    }
+
+    &__overlay {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      padding: 2rem;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(35, 38, 59, 0.4),
+        rgba(35, 38, 59, 0.4) 0.75rem,
+        rgba(35, 38, 59, 0.32) 0.75rem,
+        rgba(35, 38, 59, 0.32) 1.5rem
+      );
+      opacity: 0;
+      transition: opacity 0.4s;
+      z-index: 1;
+    }
   }
 </style>

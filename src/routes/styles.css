@@ -217,4 +217,34 @@ body {
   border-radius: 0.25rem;
   box-shadow: var(--box-shadow-1);
   padding: 1.25rem;
+  overflow: hidden;
+}
+
+.button {
+  padding: 0.75em 1em;
+  background-color: var(--gray-800);
+  border-color: var(--gray-800);
+  border-radius: 0.25rem;
+  outline: none;
+  font-family: var(--font-main);
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--white);
+  text-transform: uppercase;
+  transition: background-color 0.24s, border 0.24s;
+}
+
+.button:focus {
+  box-shadow: 0 0 0 0.25rem var(--indigo-200);
+}
+
+.button:focus,
+.button:hover {
+  background-color: var(--indigo-500);
+  border-color: var(--indigo-500);
+}
+
+.button:active {
+  background-color: var(--indigo-600);
+  border-color: var(--indigo-600);
 }
