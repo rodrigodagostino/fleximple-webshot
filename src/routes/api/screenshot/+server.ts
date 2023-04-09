@@ -7,14 +7,14 @@ import type { ISettings } from '../../../stores'
 export const POST: RequestHandler = async ({ request }) => {
   const formData = await request.formData()
 
-  const targetProtocol = String(formData.get('target-protocol'))
-  const targetUrl = String(formData.get('target-url'))
-  const fileWidth = Number(formData.get('file-width'))
-  const fileHeight = Number(formData.get('file-height'))
-  const fullPage = Boolean(formData.get('full-page'))
-  const fileType = String(formData.get('file-type')) as ISettings['fileType']
-  const fileQuality = Number(formData.get('file-quality'))
-  const captureDelay = Number(formData.get('capture-delay'))
+  const targetProtocol = String(formData.get('targetProtocol'))
+  const targetUrl = String(formData.get('targetUrl'))
+  const fileWidth = Number(formData.get('fileWidth'))
+  const fileHeight = Number(formData.get('fileHeight'))
+  const fullPage = Boolean(formData.get('fullPage'))
+  const fileType = String(formData.get('fileType')) as ISettings['fileType']
+  const fileQuality = Number(formData.get('fileQuality'))
+  const captureDelay = Number(formData.get('captureDelay'))
 
   // Start Browser
   const browser = await puppeteer.launch({
