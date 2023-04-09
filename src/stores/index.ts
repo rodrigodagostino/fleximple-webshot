@@ -35,23 +35,14 @@ const defaultStore: IStore = {
 
 const setLocalStorage = () => {
   const $store = get(store)
-  if (browser) localStorage.setItem('fleximpleWebshotSettings', JSON.stringify($store.settings))
+  localStorage.setItem('fleximpleWebshot', JSON.stringify($store.settings))
 }
 
 export const store = writable<IStore>(defaultStore, (set) => {
   if (browser) {
-    const hasSettings =
-      localStorage.getItem('fleximpleWebshotSettings')?.charAt(0) === '{' &&
-      !(localStorage.getItem('fleximpleWebshotSettings')?.charAt(1) === '}')
-    if (!hasSettings) setLocalStorage()
-    set(
-      hasSettings
-        ? {
-            ...defaultStore,
-            settings: JSON.parse(localStorage.getItem('fleximpleWebshotSettings')),
-          }
-        : defaultStore
-    )
+    const settings = localStorage.getItem('fleximpleWebshot')
+    const hasSettings = settings && settings.charAt(1) !== '}'
+    hasSettings && set({ ...defaultStore, settings: JSON.parse(settings) })
   }
 })
 
