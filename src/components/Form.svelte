@@ -1,16 +1,12 @@
 <script lang="ts">
-  import { camelCase } from 'lodash'
+  import { camelCase, debounce } from 'lodash'
   import { setScreenshot, setSetting, setStatus, store, type ISettings } from '../stores'
 
-  const handleOnChange = ({ target }: Event) => {
-    if (target) {
-      const setting = camelCase(
-        (target as HTMLInputElement | HTMLSelectElement).name
-      ) as keyof ISettings
-      const value =
-        (target as HTMLInputElement | HTMLSelectElement).type === 'checkbox'
-          ? (target as HTMLInputElement).checked
-          : (target as HTMLInputElement | HTMLSelectElement).value
+  const handleOnChange = (event: Event) => {
+    if (event.target) {
+      const target = event.target as HTMLInputElement
+      const setting = camelCase(target.name) as keyof ISettings
+      const value = target.type === 'checkbox' ? target.checked : target.value
 
       setSetting(setting, value)
     }
@@ -49,7 +45,7 @@
         name="target-protocol"
         class="form-field"
         value={$store.settings.targetProtocol}
-        on:change={handleOnChange}
+        on:change={debounce(handleOnChange, 400)}
       >
         <option value="http">http://</option>
         <option value="https">https://</option>
@@ -61,7 +57,7 @@
         class="form-field"
         placeholder="example.com"
         bind:value={$store.settings.targetUrl}
-        on:change={handleOnChange}
+        on:change={debounce(handleOnChange, 400)}
         required
       />
     </div>
@@ -74,7 +70,7 @@
       name="file-width"
       class="form-field"
       value={$store.settings.fileWidth}
-      on:change={handleOnChange}
+      on:change={debounce(handleOnChange, 400)}
     />
   </div>
   <div class="form-control">
@@ -86,7 +82,7 @@
       class="form-field"
       disabled={$store.settings.fullPage}
       value={$store.settings.fileHeight}
-      on:change={handleOnChange}
+      on:change={debounce(handleOnChange, 400)}
     />
   </div>
   <div class="form-control full-width">
@@ -96,7 +92,7 @@
       name="full-page"
       class="form-field"
       checked={$store.settings.fullPage}
-      on:change={handleOnChange}
+      on:change={debounce(handleOnChange, 400)}
     />
     <label for="full-page" class="form-label">Full page</label>
   </div>
@@ -107,7 +103,7 @@
       name="file-type"
       class="form-field"
       value={$store.settings.fileType}
-      on:change={handleOnChange}
+      on:change={debounce(handleOnChange, 400)}
     >
       <option value="jpeg">JPG</option>
       <option value="png">PNG</option>
@@ -122,7 +118,7 @@
       name="file-quality"
       class="form-field"
       value={$store.settings.fileQuality}
-      on:change={handleOnChange}
+      on:change={debounce(handleOnChange, 400)}
     />
   </div>
   <div class="form-control full-width">
@@ -133,7 +129,7 @@
       name="capture-delay"
       class="form-field"
       value={$store.settings.captureDelay}
-      on:change={handleOnChange}
+      on:change={debounce(handleOnChange, 400)}
     />
   </div>
   <div class="form-control full-width">
