@@ -16,16 +16,16 @@
     }
   }
 
-  const requestScreenshot = async () => {
+  const requestScreenshot = async (event: Event) => {
     setStatus('generating')
     setScreenshot(null)
 
-    const response = await fetch('/api/screenshot', {
+    const formEl = event.target as HTMLFormElement
+    const data = new FormData(formEl)
+
+    const response = await fetch(formEl.action, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify($store.settings),
+      body: data,
     })
       .then((data) => {
         setStatus('success')
@@ -40,7 +40,7 @@
   }
 </script>
 
-<form class="form card" on:submit|preventDefault={requestScreenshot}>
+<form class="form card" on:submit|preventDefault={requestScreenshot} action="/api/screenshot">
   <div class="form-control full-width">
     <label for="target-url" class="form-label">Site URL</label>
     <div class="form-field-group">

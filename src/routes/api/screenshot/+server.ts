@@ -2,18 +2,19 @@ import puppeteer from 'puppeteer'
 
 import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
+import type { ISettings } from '../../../stores'
 
-export const POST = (async ({ request }) => {
-  const {
-    targetProtocol,
-    targetUrl,
-    fileWidth,
-    fileHeight,
-    fullPage,
-    fileType,
-    fileQuality,
-    captureDelay,
-  } = await request.json()
+export const POST: RequestHandler = async ({ request }) => {
+  const formData = await request.formData()
+
+  const targetProtocol = String(formData.get('target-protocol'))
+  const targetUrl = String(formData.get('target-url'))
+  const fileWidth = Number(formData.get('file-width'))
+  const fileHeight = Number(formData.get('file-height'))
+  const fullPage = Boolean(formData.get('full-page'))
+  const fileType = String(formData.get('file-type')) as ISettings['fileType']
+  const fileQuality = Number(formData.get('file-quality'))
+  const captureDelay = Number(formData.get('capture-delay'))
 
   // Start Browser
   const browser = await puppeteer.launch({
@@ -28,8 +29,8 @@ export const POST = (async ({ request }) => {
     waitUntil: 'networkidle0',
   })
   await page.setViewport({
-    width: parseInt(fileWidth),
-    height: parseInt(fileHeight),
+    width: fileWidth,
+    height: fileHeight,
   })
   if (fullPage) {
     await page.evaluate(() =>
@@ -40,12 +41,12 @@ export const POST = (async ({ request }) => {
     )
   }
   // Convert value to milliseconds.
-  await page.waitForTimeout(captureDelay * 1000)
+  await new Promise((r) => setTimeout(r, captureDelay * 1000))
 
   // Take a screenshot
   const screenshot = await page.screenshot({
     type: fileType,
-    ...(fileType === 'jpeg' || fileType === 'webp' ? { quality: parseInt(fileQuality) } : null),
+    ...(fileType === 'jpeg' || fileType === 'webp' ? { quality: fileQuality } : null),
     fullPage: fullPage,
     encoding: 'base64',
   })
@@ -57,4 +58,4 @@ export const POST = (async ({ request }) => {
     success: true,
     screenshot,
   })
-}) satisfies RequestHandler
+}
