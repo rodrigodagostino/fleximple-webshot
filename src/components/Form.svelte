@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { setScreenshot, setStatus } from '../stores'
+  import { setScreenshot, setStatus, store } from '../stores'
   import FormButton from './FormButton.svelte'
   import FormField from './FormField.svelte'
   import FormGroup from './FormGroup.svelte'
@@ -63,7 +63,9 @@
     max={120}
     width="full"
   />
-  <FormButton type="submit" width="full">Capture</FormButton>
+  <FormButton type="submit" width="full" isDisabled={$store.status === 'generating'}>
+    Capture
+  </FormButton>
 </form>
 
 <style lang="scss">
