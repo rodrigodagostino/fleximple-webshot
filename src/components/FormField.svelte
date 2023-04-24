@@ -5,6 +5,8 @@
   export let id: keyof ISettings
   export let type: 'text' | 'number' | 'checkbox' | 'select' = 'text'
   export let label: string
+  export let min: number | null = null
+  export let max: number | null = null
   export let options: { label: string; value: string }[] | undefined = undefined
   export let width: 'auto' | 'full' = 'auto'
 
@@ -20,18 +22,30 @@
 </script>
 
 <div class="form-field" class:full-width={width === 'full'}>
-  {#if type === 'text' || type === 'number'}
+  {#if type === 'text'}
     <label for={id} class="form-field__label">{label}</label>
     <input
       {id}
       {type}
       name={id}
       class="form-field__input"
+      {min}
       value={$store.settings[id]}
       on:change={debounce(handleOnChange, 400)}
     />
-  {/if}
-  {#if type === 'select'}
+  {:else if type === 'number'}
+    <label for={id} class="form-field__label">{label}</label>
+    <input
+      {id}
+      {type}
+      name={id}
+      class="form-field__input"
+      {min}
+      {max}
+      value={$store.settings[id]}
+      on:change={debounce(handleOnChange, 400)}
+    />
+  {:else if type === 'select'}
     <label for={id} class="form-field__label">{label}</label>
     <select
       {id}
@@ -46,8 +60,7 @@
         {/each}
       {/if}
     </select>
-  {/if}
-  {#if type === 'checkbox'}
+  {:else if type === 'checkbox'}
     <input
       {id}
       {type}

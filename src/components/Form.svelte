@@ -41,8 +41,8 @@
     />
     <FormField id="targetUrl" label="Target URL" />
   </FormGroup>
-  <FormField id="fileWidth" type="number" label="Width (in pixels)" />
-  <FormField id="fileHeight" type="number" label="Height (in pixels)" />
+  <FormField id="fileWidth" type="number" label="Width (in pixels)" min={0} />
+  <FormField id="fileHeight" type="number" label="Height (in pixels)" min={0} />
   <FormField id="fullPage" type="checkbox" label="Full page" width="full" />
   <FormField
     id="fileType"
@@ -54,11 +54,13 @@
       { label: 'WEBP', value: 'webp' },
     ]}
   />
-  <FormField id="fileQuality" type="number" label="Quality" />
+  <FormField id="fileQuality" type="number" label="Quality" min={0} max={100} />
   <FormField
     id="captureDelay"
     type="number"
     label="Delay before capture (in seconds)"
+    min={0}
+    max={120}
     width="full"
   />
   <FormButton type="submit" width="full">Capture</FormButton>
