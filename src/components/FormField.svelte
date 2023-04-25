@@ -102,6 +102,7 @@
       padding: 0.25rem 0.5rem;
       outline: none;
       transition: color 0.24s, background-color 0.24s, border 0.24s;
+      position: relative;
 
       &::placeholder {
         color: var(--gray-400);
