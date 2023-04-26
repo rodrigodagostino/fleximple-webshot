@@ -33,18 +33,20 @@ const defaultStore: IStore = {
   screenshot: null,
 }
 
-const setLocalStorage = () => {
-  const $store = get(store)
-  localStorage.setItem('fleximpleWebshot', JSON.stringify($store.settings))
-}
-
 export const store = writable<IStore>(defaultStore, (set) => {
   if (browser) {
-    const settings = localStorage.getItem('fleximpleWebshot')
-    const hasSettings = settings && settings.charAt(1) !== '}'
-    hasSettings && set({ ...defaultStore, settings: JSON.parse(settings) })
+    const persistingSettings = localStorage.getItem('webshotSettings')
+    const hasPersistingSettings =
+      persistingSettings &&
+      persistingSettings.charAt(0) === '{' &&
+      persistingSettings.charAt(1) !== '}'
+    hasPersistingSettings && set({ ...defaultStore, settings: JSON.parse(persistingSettings) })
   }
 })
+
+store.subscribe(
+  (value) => browser && localStorage.setItem('webshotSettings', JSON.stringify(value.settings))
+)
 
 export const setStatus = (status: IStore['status']) => {
   store.update((currData) => ({
@@ -61,7 +63,6 @@ export const setSetting = (setting: keyof ISettings, value: string | boolean) =>
       [setting]: value,
     },
   }))
-  setLocalStorage()
 }
 
 export const setScreenshot = (screenshot: IStore['screenshot']) => {
