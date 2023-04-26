@@ -1,34 +1,11 @@
 <script lang="ts">
-  import { setScreenshot, setStatus, store } from '../stores'
+  import { store } from '../stores'
   import FormButton from './FormButton.svelte'
   import FormField from './FormField.svelte'
   import FormGroup from './FormGroup.svelte'
-
-  const requestScreenshot = async (event: Event) => {
-    setStatus('generating')
-    setScreenshot(null)
-
-    const formEl = event.target as HTMLFormElement
-    const data = new FormData(formEl)
-
-    const response = await fetch(formEl.action, {
-      method: 'POST',
-      body: data,
-    })
-      .then((data) => {
-        setStatus('success')
-        return data.json()
-      })
-      .catch((error) => {
-        setStatus('error')
-        console.error('Error:', error)
-      })
-
-    if (response) setScreenshot(response.screenshot)
-  }
 </script>
 
-<form class="form card" on:submit|preventDefault={requestScreenshot} action="/api/screenshot">
+<form class="form card" method="post">
   <FormGroup id="targetUrl" label="Site URL" width="full">
     <FormField
       id="targetProtocol"

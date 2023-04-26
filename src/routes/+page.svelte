@@ -1,10 +1,21 @@
-<script>
-  import { store } from '../stores/index'
+<script lang="ts">
+  import type { ActionData } from '../routes/$types'
+  import { setScreenshot, setSettings, setStatus, store } from '../stores/index'
 
   import Form from '../components/Form.svelte'
   import Notification from '../components/Notification.svelte'
   import Screenshot from '../components/Screenshot.svelte'
   import './styles.css'
+
+  export let form: ActionData
+
+  $: {
+    if (form?.success) {
+      setStatus('success')
+      setSettings(form.data.settings)
+      setScreenshot(form.data.screenshot)
+    }
+  }
 </script>
 
 <svelte:head>

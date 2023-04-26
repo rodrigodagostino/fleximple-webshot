@@ -1,5 +1,5 @@
 import { browser } from '$app/environment'
-import { get, writable } from 'svelte/store'
+import { writable } from 'svelte/store'
 
 export interface ISettings {
   targetProtocol: 'http' | 'https'
@@ -52,6 +52,13 @@ export const setStatus = (status: IStore['status']) => {
   store.update((currData) => ({
     ...currData,
     status,
+  }))
+}
+
+export const setSettings = (settings: IStore['settings']) => {
+  store.update((currData) => ({
+    ...currData,
+    settings,
   }))
 }
 
