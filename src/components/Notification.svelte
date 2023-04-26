@@ -35,7 +35,7 @@
     <span>Screenshot generated successfully.</span>
   </div>
 {/if}
-{#if status === 'error'}
+{#if status === 'error' || status === 'failure'}
   <div
     class="notification notification--{status}"
     in:fly={{ y: 32, duration: 400, delay: 400 }}
@@ -82,7 +82,8 @@
       background-color: var(--green-100);
     }
 
-    &--error {
+    &--error,
+    &--failure {
       color: var(--red-800);
       background-color: var(--red-100);
     }

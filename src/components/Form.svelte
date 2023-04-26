@@ -1,11 +1,25 @@
 <script lang="ts">
-  import { store } from '../stores'
+  import { enhance } from '$app/forms'
+  import { setScreenshot, setStatus, store } from '../stores'
+
   import FormButton from './FormButton.svelte'
   import FormField from './FormField.svelte'
   import FormGroup from './FormGroup.svelte'
 </script>
 
-<form class="form card" method="post">
+<form
+  class="form card"
+  method="post"
+  use:enhance={() => {
+    setStatus('generating')
+    setScreenshot(null)
+
+    return ({ result }) => {
+      setStatus(result.type)
+      if (result.type === 'success') setScreenshot(result.data?.screenshot)
+    }
+  }}
+>
   <FormGroup id="targetUrl" label="Site URL" width="full">
     <FormField
       id="targetProtocol"

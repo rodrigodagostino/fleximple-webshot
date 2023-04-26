@@ -13,7 +13,7 @@ export interface ISettings {
 }
 
 export interface IStore {
-  status: 'idle' | 'generating' | 'success' | 'error'
+  status: 'idle' | 'generating' | 'success' | 'error' | 'failure' | 'redirect'
   settings: ISettings
   screenshot: string | null
 }
