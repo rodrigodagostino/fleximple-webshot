@@ -30,7 +30,7 @@
         { label: 'https://', value: 'https' },
       ]}
     />
-    <FormField id="targetUrl" label="Target URL" />
+    <FormField id="targetUrl" label="Target URL" placeholder="example.com" />
   </FormGroup>
   <FormField id="fileWidth" type="number" label="Width (in pixels)" min={0} />
   <FormField id="fileHeight" type="number" label="Height (in pixels)" min={0} />

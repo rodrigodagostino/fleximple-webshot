@@ -5,6 +5,7 @@
   export let id: keyof ISettings
   export let type: 'text' | 'number' | 'checkbox' | 'select' = 'text'
   export let label: string
+  export let placeholder: string | null = null
   export let min: number | null = null
   export let max: number | null = null
   export let options: { label: string; value: string }[] | undefined = undefined
@@ -29,6 +30,7 @@
       {type}
       name={id}
       class="form-field__input"
+      {placeholder}
       {min}
       value={$store.settings[id]}
       on:change={debounce(handleOnChange, 400)}
@@ -40,6 +42,7 @@
       {type}
       name={id}
       class="form-field__input"
+      {placeholder}
       {min}
       {max}
       value={$store.settings[id]}
