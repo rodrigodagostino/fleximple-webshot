@@ -50,16 +50,10 @@
     />
   {:else if type === 'select'}
     <label for={id} class="form-field__label">{label}</label>
-    <select
-      {id}
-      name={id}
-      class="form-field__select"
-      value={$store.settings[id]}
-      on:change={debounce(handleOnChange, 400)}
-    >
+    <select {id} name={id} class="form-field__select" on:change={debounce(handleOnChange, 400)}>
       {#if options}
         {#each options as { label, value }}
-          <option {value}>{label}</option>
+          <option {value} selected={value === $store.settings[id]}>{label}</option>
         {/each}
       {/if}
     </select>
