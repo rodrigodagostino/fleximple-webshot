@@ -63,7 +63,7 @@
       {type}
       name={id}
       class="form-field__checkbox"
-      checked={$store.settings[id]}
+      checked={!!$store.settings[id]}
       on:change={debounce(handleOnChange, 400)}
     />
     <label for={id} class="form-field__label">{label}</label>
