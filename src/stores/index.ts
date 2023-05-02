@@ -1,4 +1,3 @@
-import { browser } from '$app/environment'
 import { writable } from 'svelte/store'
 
 export interface ISettings {
@@ -33,20 +32,7 @@ const defaultStore: IStore = {
   screenshot: null,
 }
 
-export const store = writable<IStore>(defaultStore, (set) => {
-  if (browser) {
-    const persistingSettings = localStorage.getItem('webshotSettings')
-    const hasPersistingSettings =
-      persistingSettings &&
-      persistingSettings.charAt(0) === '{' &&
-      persistingSettings.charAt(1) !== '}'
-    hasPersistingSettings && set({ ...defaultStore, settings: JSON.parse(persistingSettings) })
-  }
-})
-
-store.subscribe(
-  (value) => browser && localStorage.setItem('webshotSettings', JSON.stringify(value.settings))
-)
+export const store = writable<IStore>(defaultStore)
 
 export const setStatus = (status: IStore['status']) => {
   store.update((currData) => ({

@@ -1,10 +1,19 @@
 import puppeteer from 'puppeteer'
 
-import type { Actions } from './$types'
+import type { Actions, PageServerLoad } from './$types'
 import type { ISettings } from '../stores'
 
+export const load: PageServerLoad = ({ cookies }) => {
+  const settings = cookies.get('webshotSettings')
+  const parsedSettings: ISettings | undefined = settings && JSON.parse(settings)
+
+  return {
+    settings: parsedSettings,
+  }
+}
+
 export const actions: Actions = {
-  default: async ({ request }) => {
+  default: async ({ request, cookies }) => {
     const formData = await request.formData()
 
     const targetProtocol = String(formData.get('targetProtocol')) as ISettings['targetProtocol']
@@ -15,6 +24,19 @@ export const actions: Actions = {
     const fileType = String(formData.get('fileType')) as ISettings['fileType']
     const fileQuality = Number(formData.get('fileQuality'))
     const captureDelay = Number(formData.get('captureDelay'))
+
+    const settings: ISettings = {
+      targetProtocol,
+      targetUrl,
+      fileWidth,
+      fileHeight,
+      fullPage,
+      fileType,
+      fileQuality,
+      captureDelay,
+    }
+
+    cookies.set('webshotSettings', JSON.stringify(settings), { path: '/' })
 
     // Start browser.
     const browser = await puppeteer.launch({
@@ -55,19 +77,7 @@ export const actions: Actions = {
 
     return {
       success: true,
-      data: {
-        settings: {
-          targetProtocol,
-          targetUrl,
-          fileWidth,
-          fileHeight,
-          fullPage,
-          fileType,
-          fileQuality,
-          captureDelay,
-        },
-        screenshot,
-      },
+      screenshot,
     }
   },
 }

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { ActionData } from '../routes/$types'
+  import type { ActionData, PageServerData } from './$types'
   import { setScreenshot, setSettings, setStatus, store } from '../stores/index'
 
   import Form from '../components/Form.svelte'
@@ -7,13 +7,16 @@
   import Screenshot from '../components/Screenshot.svelte'
   import './styles.css'
 
+  export let data: PageServerData
   export let form: ActionData
 
   $: {
+    if (data.settings) {
+      setSettings(data.settings)
+    }
     if (form?.success) {
       setStatus('success')
-      setSettings(form.data.settings)
-      setScreenshot(form.data.screenshot)
+      setScreenshot(form.screenshot)
     }
   }
 </script>
