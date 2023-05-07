@@ -33,10 +33,10 @@
         { label: 'https://', value: 'https' },
       ]}
     />
-    <FormField id="targetUrl" label="Target URL" placeholder="example.com" />
+    <FormField id="targetUrl" label="Target URL" placeholder="example.com" required={true} />
   </FormGroup>
-  <FormField id="fileWidth" type="number" label="Width (in pixels)" min={0} />
-  <FormField id="fileHeight" type="number" label="Height (in pixels)" min={0} />
+  <FormField id="fileWidth" type="number" label="Width (in pixels)" min={0} required={true} />
+  <FormField id="fileHeight" type="number" label="Height (in pixels)" min={0} required={true} />
   <FormField id="fullPage" type="checkbox" label="Full page" width="full" />
   <FormField
     id="fileType"
@@ -48,13 +48,14 @@
       { label: 'WEBP', value: 'webp' },
     ]}
   />
-  <FormField id="fileQuality" type="number" label="Quality" min={0} max={100} />
+  <FormField id="fileQuality" type="number" label="Quality" min={0} max={100} required={true} />
   <FormField
     id="captureDelay"
     type="number"
     label="Delay before capture (in seconds)"
     min={0}
     max={120}
+    required={true}
     width="full"
   />
   <HCaptcha />
