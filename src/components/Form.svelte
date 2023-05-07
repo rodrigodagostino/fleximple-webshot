@@ -1,10 +1,11 @@
 <script lang="ts">
   import { enhance } from '$app/forms'
-  import { setScreenshot, setStatus, store } from '../stores'
+  import { setIsVerified, setScreenshot, setStatus, store } from '../stores'
 
   import FormButton from './FormButton.svelte'
   import FormField from './FormField.svelte'
   import FormGroup from './FormGroup.svelte'
+  import HCaptcha from './HCaptcha.svelte'
 </script>
 
 <form
@@ -16,6 +17,8 @@
 
     return ({ result }) => {
       setStatus(result.type)
+      setIsVerified(false)
+      window.hcaptcha?.reset()
       if (result.type === 'success') setScreenshot(result.data?.screenshot)
     }
   }}
@@ -54,7 +57,12 @@
     max={120}
     width="full"
   />
-  <FormButton type="submit" width="full" isDisabled={$store.status === 'generating'}>
+  <HCaptcha />
+  <FormButton
+    type="submit"
+    width="full"
+    isDisabled={!$store.isVerified || $store.status === 'generating'}
+  >
     Capture
   </FormButton>
 </form>

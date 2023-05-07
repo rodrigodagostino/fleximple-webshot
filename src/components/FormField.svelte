@@ -76,10 +76,6 @@
       grid-column: 1/-1;
     }
 
-    &.align-center {
-      justify-self: center;
-    }
-
     .form-field__label {
       display: inline-block;
       font-size: 0.875rem;

@@ -14,6 +14,7 @@ export interface ISettings {
 export interface IStore {
   status: 'idle' | 'generating' | 'success' | 'error' | 'failure' | 'redirect'
   settings: ISettings
+  isVerified: boolean
   screenshot: string | null
 }
 
@@ -29,6 +30,7 @@ const defaultStore: IStore = {
     fileQuality: 80,
     captureDelay: 0,
   },
+  isVerified: false,
   screenshot: null,
 }
 
@@ -55,6 +57,13 @@ export const setSetting = (setting: keyof ISettings, value: string | boolean) =>
       ...currData.settings,
       [setting]: value,
     },
+  }))
+}
+
+export const setIsVerified = (isVerified: IStore['isVerified']) => {
+  store.update((currData) => ({
+    ...currData,
+    isVerified,
   }))
 }
 
