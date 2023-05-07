@@ -138,7 +138,7 @@ h6 {
 
 ::selection {
   color: var(--white);
-  background: var(--indigo-600);
+  background: var(--indigo-500);
 }
 
 a {
