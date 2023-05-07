@@ -8,6 +8,7 @@
   export let placeholder: string | null = null
   export let min: number | null = null
   export let max: number | null = null
+  export let required = false
   export let options: { label: string; value: string }[] | undefined = undefined
   export let width: 'auto' | 'full' = 'auto'
 
@@ -22,7 +23,7 @@
   }
 </script>
 
-<div class="form-field" class:full-width={width === 'full'}>
+<div class="form-field" class:width-full={width === 'full'}>
   {#if type === 'text'}
     <label for={id} class="form-field__label">{label}</label>
     <input
@@ -31,7 +32,7 @@
       name={id}
       class="form-field__input"
       {placeholder}
-      {min}
+      {required}
       value={$store.settings[id]}
       on:change={debounce(handleOnChange, 400)}
     />
@@ -45,6 +46,7 @@
       {placeholder}
       {min}
       {max}
+      {required}
       value={$store.settings[id]}
       on:change={debounce(handleOnChange, 400)}
     />
@@ -72,7 +74,7 @@
 
 <style lang="scss">
   .form-field {
-    &.full-width {
+    &.width-full {
       grid-column: 1/-1;
     }
 
