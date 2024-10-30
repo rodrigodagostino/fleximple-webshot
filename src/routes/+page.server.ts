@@ -1,10 +1,10 @@
 import puppeteer from 'puppeteer';
 
-import { error } from '@sveltejs/kit';
+// import { error } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 import type { ISettings } from '../stores';
-import { HCAPTCHA_SECRET_KEY } from '$env/static/private';
-import { PUBLIC_HCAPTCHA_SITE_KEY } from '$env/static/public';
+// import { HCAPTCHA_SECRET_KEY } from '$env/static/private';
+// import { PUBLIC_HCAPTCHA_SITE_KEY } from '$env/static/public';
 
 export const load: PageServerLoad = ({ cookies }) => {
 	const settings = cookies.get('webshotSettings');
@@ -27,31 +27,31 @@ export const actions: Actions = {
 		const fileType = String(formData.get('fileType')) as ISettings['fileType'];
 		const fileQuality = Number(formData.get('fileQuality'));
 		const captureDelay = Number(formData.get('captureDelay'));
-		const hCaptchaResponse = String(formData.get('h-captcha-response'));
+		// const hCaptchaResponse = String(formData.get('h-captcha-response'));
 
 		/**
 		 * Verify captcha.
 		 */
-		const hCaptchaVerifyBody = new URLSearchParams({
-			response: hCaptchaResponse,
-			secret: HCAPTCHA_SECRET_KEY,
-			sitekey: PUBLIC_HCAPTCHA_SITE_KEY,
-		}).toString();
+		// const hCaptchaVerifyBody = new URLSearchParams({
+		// 	response: hCaptchaResponse,
+		// 	secret: HCAPTCHA_SECRET_KEY,
+		// 	sitekey: PUBLIC_HCAPTCHA_SITE_KEY,
+		// }).toString();
 
-		const hCaptchaVerifyResponse = await fetch('https://hcaptcha.com/siteverify', {
-			method: 'POST',
-			credentials: 'omit',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded',
-			},
-			body: hCaptchaVerifyBody,
-		});
+		// const hCaptchaVerifyResponse = await fetch('https://hcaptcha.com/siteverify', {
+		// 	method: 'POST',
+		// 	credentials: 'omit',
+		// 	headers: {
+		// 		'Content-Type': 'application/x-www-form-urlencoded',
+		// 	},
+		// 	body: hCaptchaVerifyBody,
+		// });
 
-		const hCaptchaVerifyData = await hCaptchaVerifyResponse.json();
+		// const hCaptchaVerifyData = await hCaptchaVerifyResponse.json();
 
-		if (!hCaptchaVerifyData.success) {
-			throw error(400, 'There was an error during hCaptcha verification.');
-		}
+		// if (!hCaptchaVerifyData.success) {
+		// 	throw error(400, 'There was an error during hCaptcha verification.');
+		// }
 
 		/**
 		 * Generate screenshot.

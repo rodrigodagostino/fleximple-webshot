@@ -5,7 +5,7 @@
 	import FormButton from './FormButton.svelte';
 	import FormField from './FormField.svelte';
 	import FormGroup from './FormGroup.svelte';
-	import HCaptcha from './HCaptcha.svelte';
+	// import HCaptcha from './HCaptcha.svelte';
 </script>
 
 <form
@@ -58,11 +58,12 @@
 		required={true}
 		width="full"
 	/>
-	<HCaptcha />
+	<!-- <HCaptcha /> -->
 	<FormButton
 		type="submit"
 		width="full"
-		isDisabled={!$store.isVerified || $store.status === 'generating'}
+		isDisabled={// !$store.isVerified ||
+		$store.status === 'generating'}
 	>
 		Capture
 	</FormButton>
